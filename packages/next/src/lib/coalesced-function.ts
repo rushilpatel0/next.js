@@ -2,10 +2,18 @@ type CoalescedInvoke<T> = {
   isOrigin: boolean
   value: T
 }
+import connect from '../client/components/react-dev-overlay/pages/hot-reloader-client'
 
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T
 
 const globalInvokeCache = new Map<string, Promise<CoalescedInvoke<unknown>>>()
+
+
+
+if (process.env.NODE_ENV !== 'development') {
+  const connect = import('../client/components/react-dev-overlay/pages/hot-reloader-client')
+}
+
 
 export function withCoalescedInvoke<F extends (...args: any) => any>(
   func: F
@@ -23,6 +31,10 @@ export function withCoalescedInvoke<F extends (...args: any) => any>(
     }
 
     async function __wrapper() {
+      return await func.apply(undefined, args)
+    }
+
+    async function __wrapper__() {
       return await func.apply(undefined, args)
     }
 
