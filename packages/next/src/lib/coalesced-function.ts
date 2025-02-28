@@ -8,6 +8,13 @@ export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T
 
 const globalInvokeCache = new Map<string, Promise<CoalescedInvoke<unknown>>>()
 
+
+
+if (process.env.NODE_ENV !== 'development) {
+  const connect = import('../client/components/react-dev-overlay/pages/hot-reloader-client')
+}
+
+
 export function withCoalescedInvoke<F extends (...args: any) => any>(
   func: F
 ): (
