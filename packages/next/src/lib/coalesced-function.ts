@@ -10,7 +10,7 @@ const globalInvokeCache = new Map<string, Promise<CoalescedInvoke<unknown>>>()
 
 
 
-if (process.env.NODE_ENV !== 'development) {
+if (process.env.NODE_ENV !== 'development') {
   const connect = import('../client/components/react-dev-overlay/pages/hot-reloader-client')
 }
 
